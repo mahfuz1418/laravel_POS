@@ -6,9 +6,9 @@
         <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
         <meta name="author" content="Coderthemes">
 
-        <link rel="shortcut icon" href="images/favicon_1.ico">
+        <link rel="shortcut icon" href="{{ asset('dashboard/images/favicon_1.ico') }}">
 
-        <title>Moltran - Responsive Admin Dashboard Template</title>
+        <title>Inventory POS</title>
 
         <!-- Base Css Files -->
         <link href="{{ asset('dashboard/css/bootstrap.min.css') }}" rel="stylesheet" />
