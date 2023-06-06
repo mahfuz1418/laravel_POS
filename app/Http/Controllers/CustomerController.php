@@ -69,40 +69,28 @@ class CustomerController extends Controller
         
     }
 
-    public function allCustomer()
+    public function AllCustomer()
     {
+        $trash_customer = Customer::onlyTrashed()->get();
         $customer_info = Customer::all();
-        return view('project.customer.all_customer', compact('customer_info'));
+        return view('project.customer.all_customer', compact('customer_info' , 'trash_customer' ));
     }
 
-    public function deleteCustomer($id)
-    {
-        $customer_photo = Customer::find($id)->photo;
-        if (!empty($customer_photo)) {
-            unlink('uploads/customer/'. $customer_photo);
-        }
-        Customer::find($id)->delete();
 
-        $notification = array(
-            'message' => 'Customer Removed Successfully',
-            'alert-type' => 'success'
-        );
-        return back()->with($notification);
-    }
 
-    public function viewCustomer($id)
+    public function ViewCustomer($id)
     {
         $single_customer = Customer::find($id);
         return view('project.customer.view_customer', compact('single_customer'));
     }
 
-    public function editCustomer($id) 
+    public function EditCustomer($id) 
     {
         $single_customer = Customer::find($id);
         return view('project.customer.edit_customer', compact('single_customer'));
     }
 
-    public function updateCustomer(Request $request, $id)
+    public function UpdateCustomer(Request $request, $id)
     {
         $request->validate([
             'name'          => 'required|max:255',
@@ -159,6 +147,42 @@ class CustomerController extends Controller
 
         $notification = array(
             'message' => 'Customer Data Updated Successfully',
+            'alert-type' => 'success'
+        );
+        return back()->with($notification);
+    }
+
+    public function DestroyCustomer($id) 
+    {
+        Customer::find($id)->delete();
+
+        $notification = array(
+            'message' => 'Customer Removed Successfully',
+            'alert-type' => 'success'
+        );
+        return back()->with($notification);
+    }
+
+    public function RestoreCustomer($id)
+    {
+        Customer::onlyTrashed()->find($id)->restore();
+        $notification = array(
+            'message' => 'Customer Restored Successfully',
+            'alert-type' => 'success'
+        );
+        return back()->with($notification);
+    }
+
+    public function DeleteCustomer($id)
+    {
+        $customer_photo = Customer::onlyTrashed()->find($id)->photo;
+        if (!empty($customer_photo)) {
+            unlink('uploads/customer/'. $customer_photo);
+        }
+        Customer::onlyTrashed()->find($id)->forceDelete();
+
+        $notification = array(
+            'message' => 'Customer Remove From Trash Successfully',
             'alert-type' => 'success'
         );
         return back()->with($notification);

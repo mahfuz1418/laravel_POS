@@ -19,9 +19,54 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Datatable</h3>
+                        <div class="panel-heading" style="display: flex; justify-content: space-between">
+                            <h3 class="panel-title">All Employee</h3>
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#staticBackdrop">Trash <i class="fa-solid fa-trash"></i></button>
                         </div>
+
+
+  
+                        <!-- Modal -->
+                        <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header ">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                <h5 class="modal-title " id="staticBackdropLabel">Trash Bin</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <table class="table">
+                                        <thead>
+                                          <tr>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Address</th>
+                                            <th scope="col">Photo</th>
+                                            <th>Action</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          @forelse ($trash_employee as $trash) 
+                                            <tr>
+                                              <td>{{ $trash->name }}</td>
+                                              <td>{{ $trash->address }}</td>
+                                              <td><img height="40" width="40" src="{{ asset('uploads/employee') }}/{{ $trash->photo  }}" alt=""></td>
+                                              <td>
+                                                  <a href="{{ route('restore.employee', ['id' => $trash->id]) }}" class="btn btn-info"><i class="fa-solid fa-rotate"></i></a>
+                                                  <a href="{{ route('delete.employee', ['id' => $trash->id]) }}" class="btn btn-danger"><i class="fa-solid fa-user-minus"></i></a>
+                                              </td>
+                                            </tr>
+                                          @empty 
+                                          
+                                          @endforelse
+                                        </tbody>
+                                      </table>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-12 col-sm-12 col-xs-12">
@@ -48,9 +93,9 @@
                                                 <td> <img height="70" width="70" src="{{ asset('uploads/employee') }}/{{ $data->photo  }}" alt=""></td>
                                                 <td>{{ $data->salary }}</td>
                                                 <td>
-                                                    <a href="{{ route('view.employee', ['id' => $data->id]) }}" class="btn btn-info">View</a>
-                                                    <a href="{{ route('edit.employee', ['id' => $data->id]) }}" class="btn btn-info">Edit</a>
-                                                    <button value="{{ route('delete.employee', ['id' => $data->id]) }}" class="btn btn-danger delete">Delete</button>
+                                                    <a href="{{ route('view.employee', ['id' => $data->id]) }}" class="btn btn-warning"><i class="fa-solid fa-eye"></i> </a>
+                                                    <a href="{{ route('edit.employee', ['id' => $data->id]) }}" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i> </a>
+                                                    <button value="{{ route('destroy.employee', ['id' => $data->id]) }}" class="btn btn-danger delete"><i class="fa-solid fa-user-minus"></i></button>
                                                 </td>
                                             </tr>
                                             @endforeach

@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,31 +37,61 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function(){
     // EMPLOYEE ROUTE START 
-    Route::get('/add_empoloyee', [EmployeeController::class, 'index'])->name('add.employee');
-    Route::post('/store_empoloyee', [EmployeeController::class, 'store'])->name('store.employee');
-    Route::get('/all_employee', [EmployeeController::class, 'allEmployee'])->name('all.employee');
-    Route::get('/delete_employee/{id}', [EmployeeController::class, 'deleteEmployee'])->name('delete.employee');
-    Route::get('/view_employee/{id}', [EmployeeController::class, 'viewEmployee'])->name('view.employee');
-    Route::get('/edit_employee/{id}', [EmployeeController::class, 'editEmployee'])->name('edit.employee');
-    Route::post('/update_employee/{id}', [EmployeeController::class, 'updateEmployee'])->name('update.employee');
+    Route::get('/add-empoloyee', [EmployeeController::class, 'index'])->name('add.employee');
+    Route::post('/store-empoloyee', [EmployeeController::class, 'store'])->name('store.employee');
+    Route::get('/all-employee', [EmployeeController::class, 'AllEmployee'])->name('all.employee');
+    Route::get('/destroy-employee/{id}', [EmployeeController::class, 'DestroyEmployee'])->name('destroy.employee');
+    Route::get('/delete-employee/{id}', [EmployeeController::class, 'DeleteEmployee'])->name('delete.employee');
+    Route::get('/restore-employee/{id}', [EmployeeController::class, 'RestoreEmployee'])->name('restore.employee');
+    Route::get('/view-employee/{id}', [EmployeeController::class, 'ViewEmployee'])->name('view.employee');
+    Route::get('/edit-employee/{id}', [EmployeeController::class, 'EditEmployee'])->name('edit.employee');
+    Route::post('/update-employee/{id}', [EmployeeController::class, 'UpdateEmployee'])->name('update.employee');
 
     // CUSTOMER ROUTE START 
-    Route::get('/add_customer', [CustomerController::class, 'index'])->name('add.customer');
-    Route::post('/store_customer', [CustomerController::class, 'store'])->name('store.customer');
-    Route::get('/all_customer', [CustomerController::class, 'allCustomer'])->name('all.customer');
-    Route::get('/delete_customer/{id}', [CustomerController::class, 'deleteCustomer'])->name('delete.customer');
-    Route::get('/view_customer/{id}', [CustomerController::class, 'viewCustomer'])->name('view.customer');
-    Route::get('/edit_customer/{id}', [CustomerController::class, 'editCustomer'])->name('edit.customer');
-    Route::post('/update_customer/{id}', [CustomerController::class, 'updateCustomer'])->name('update.customer');
+    Route::get('/add-customer', [CustomerController::class, 'index'])->name('add.customer');
+    Route::post('/store-customer', [CustomerController::class, 'store'])->name('store.customer');
+    Route::get('/all-customer', [CustomerController::class, 'AllCustomer'])->name('all.customer');
+    Route::get('/destroy-customer/{id}', [CustomerController::class, 'DestroyCustomer'])->name('destroy.customer');
+    Route::get('/delete-customer/{id}', [CustomerController::class, 'DeleteCustomer'])->name('delete.customer');
+    Route::get('/restore-customer/{id}', [CustomerController::class, 'RestoreCustomer'])->name('restore.customer');
+    Route::get('/view-customer/{id}', [CustomerController::class, 'ViewCustomer'])->name('view.customer');
+    Route::get('/edit-customer/{id}', [CustomerController::class, 'EditCustomer'])->name('edit.customer');
+    Route::post('/update-customer/{id}', [CustomerController::class, 'UpdateCustomer'])->name('update.customer');
 
-    // CUSTOMER ROUTE START 
-    Route::get('/add_supplier', [SupplierController::class, 'index'])->name('add.supplier');
-    Route::post('/store_supplier', [SupplierController::class, 'store'])->name('store.supplier');
-    Route::get('/all_supplier', [SupplierController::class, 'allSupplier'])->name('all.supplier');
-    Route::get('/delete_supplier/{id}', [SupplierController::class, 'deleteSupplier'])->name('delete.supplier');
-    Route::get('/view_supplier/{id}', [SupplierController::class, 'viewSupplier'])->name('view.supplier');
-    Route::get('/edit_supplier/{id}', [SupplierController::class, 'editSupplier'])->name('edit.supplier');
-    Route::post('/update_supplier/{id}', [SupplierController::class, 'updateSupplier'])->name('update.supplier');
+    // SUPPLIER ROUTE START 
+    Route::get('/add-supplier', [SupplierController::class, 'index'])->name('add.supplier');
+    Route::post('/store-supplier', [SupplierController::class, 'store'])->name('store.supplier');
+    Route::get('/all-supplier', [SupplierController::class, 'AllSupplier'])->name('all.supplier');
+    Route::get('/destroy-supplier/{id}', [SupplierController::class, 'DestroySupplier'])->name('destroy.supplier');
+    Route::get('/restore-supplier/{id}', [SupplierController::class, 'RestoreSupplier'])->name('restore.supplier');
+    Route::get('/delete-supplier/{id}', [SupplierController::class, 'DeleteSupplier'])->name('delete.supplier');
+    Route::get('/view-supplier/{id}', [SupplierController::class, 'ViewSupplier'])->name('view.supplier');
+    Route::get('/edit-supplier/{id}', [SupplierController::class, 'EditSupplier'])->name('edit.supplier');
+    Route::post('/update-supplier/{id}', [SupplierController::class, 'UpdateSupplier'])->name('update.supplier');
+
+    // SALARY ROUTE START 
+    Route::get('/add-advance-salary', [SalaryController::class, 'AddAdvanceSalary'])->name('add.advance.salary');
+    Route::post('/store-advance-salary', [SalaryController::class, 'StoreAdvanceSalary'])->name('store.advance.salary');
+    Route::get('/all-advance-salary', [SalaryController::class, 'AllAdvanceSalary'])->name('all.advance.salary');
+    Route::get('/edit_advance_salary/{id}', [SalaryController::class, 'EditAdvanceSalary'])->name('edit.advance.salary');
+    Route::post('/update-advance-salary/{id}', [SalaryController::class, 'UpdateAdvanceSalary'])->name('update.advance.salary');
+    Route::get('/destroy-advance-salary/{id}', [SalaryController::class, 'DestroyAdvanceSalary'])->name('destroy.advance.salary');
+    Route::get('/pay-salary', [SalaryController::class, 'PaySalary'])->name('pay.salary');
+
+    //CATEGORY ROUTE START
+    Route::get('/add-category', [CategoryController::class, 'AddCategorty'])->name('add.category');
+    Route::post('/store-category', [CategoryController::class, 'StoreCategorty'])->name('store.category');
+    Route::get('/all-category', [CategoryController::class, 'AllCategorty'])->name('all.category');
+    Route::get('/delete-category/{id}', [CategoryController::class, 'DeleteCategorty'])->name('delete.category');
+    Route::get('/edit-category/{id}', [CategoryController::class, 'EditCategory'])->name('edit.category');
+    Route::post('/update-category/{id}', [CategoryController::class, 'UpdateCategory'])->name('update.category');
+
+    // PRODUCT ROUTE START 
+
+    Route::resource('product', ProductController::class);
+    Route::get('/product-restore/{id}', [ProductController::class, 'restore'])->name('product.restore');
+    Route::get('/product-delete/{id}', [ProductController::class, 'delete'])->name('product.delete');
+
 });
 
 

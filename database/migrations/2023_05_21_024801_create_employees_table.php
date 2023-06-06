@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('salary');
             $table->string('vacation');
             $table->timestamps();
+            $table->softDeletes(); 
         });
     }
 

@@ -19,8 +19,47 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Datatable</h3>
+                        <div class="panel-heading" style="display: flex; justify-content: space-between">
+                            <h3 class="panel-title" >All Supplier</h3>
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#staticBackdrop">Trash <i class="fa-solid fa-trash"></i></button>
+                        </div>
+
+                        <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header ">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                <h5 class="modal-title " id="staticBackdropLabel">Trash Bin</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <table class="table">
+                                        <thead>
+                                          <tr>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Address</th>
+                                            <th scope="col">Photo</th>
+                                            <th>Action</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          @foreach ($trash_supplier as $trash)
+                                            <tr>
+                                              <td>{{ $trash->name }}</td>
+                                              <td>{{ $trash->address }}</td>
+                                              <td><img height="40" width="40" src="{{ asset('uploads/supplier') }}/{{ $trash->photo  }}" alt=""></td>
+                                              <td>
+                                                  <a href="{{ route('restore.supplier', ['id' => $trash->id]) }}" class="btn btn-info"><i class="fa-solid fa-rotate"></i></a>
+                                                  <a href="{{ route('delete.supplier', ['id' => $trash->id]) }}" class="btn btn-danger"><i class="fa-solid fa-user-minus"></i></a>
+                                              </td>
+                                            </tr>
+                                          @endforeach  
+                                        </tbody>
+                                      </table>
+                                </div>
+                            </div>
+                            </div>
                         </div>
                         <div class="panel-body">
                             <div class="row">
@@ -48,9 +87,9 @@
                                                 <td> <img height="70" width="70" src=" {{ (!empty($data->photo)) ? asset('uploads/supplier/'. $data->photo) : asset('uploads/demo.png') }}" alt=""></td>
                                                 <td>{{ $data->supplier_type }}</td>
                                                 <td>
-                                                    <a href="{{ route('view.supplier', ['id' => $data->id]) }}" class="btn btn-info">View</a>
-                                                    <a href="{{ route('edit.supplier', ['id' => $data->id]) }}" class="btn btn-info">Edit</a>
-                                                    <button value="{{ route('delete.supplier', ['id' => $data->id]) }}" class="btn btn-danger delete">Delete</button>
+                                                    <a href="{{ route('view.supplier', ['id' => $data->id]) }}" class="btn btn-warning"><i class="fa-solid fa-eye"></i></a>
+                                                    <a href="{{ route('edit.supplier', ['id' => $data->id]) }}" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i> </a>
+                                                    <button value="{{ route('destroy.supplier', ['id' => $data->id]) }}" class="btn btn-danger delete"><i class="fa-solid fa-user-minus"></i></button>
                                                 </td>
                                             </tr>
                                             @endforeach

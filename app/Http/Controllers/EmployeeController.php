@@ -51,37 +51,28 @@ class EmployeeController extends Controller
         return back()->with($notification);
     }
 
-    public function allEmployee()
+    public function AllEmployee()
      {
+        $trash_employee = Employee::onlyTrashed()->get();
         $employee_info = Employee::all();
-        return view('project.employee.all_employee', compact('employee_info'));
+        return view('project.employee.all_employee', compact('employee_info', 'trash_employee'));
     }
 
-    public function deleteEmployee($id) 
-    {
-        $employee_photo = Employee::find($id)->photo;
-        unlink('uploads/employee/'.$employee_photo);
-        Employee::find($id)->delete();
-        $notification = array(
-            'message' => 'Employee Removed Successfully',
-            'alert-type' => 'success'
-        );
-        return back()->with($notification);
-    }
+    
 
-    public function viewEmployee($id)
+    public function ViewEmployee($id)
     {
         $single_employee = Employee::find($id);
         return view('project.employee.view_employee', compact('single_employee'));
     }
 
-    public function editEmployee($id)
+    public function EditEmployee($id)
     {
         $single_employee = Employee::find($id);
         return view('project.employee.edit_employee', compact('single_employee'));
     }
 
-    public function updateEmployee(Request $request, $id)
+    public function UpdateEmployee(Request $request, $id)
     {
         $request->validate([
             'name'      => 'required|max:255',
@@ -124,6 +115,39 @@ class EmployeeController extends Controller
        
         $notification = array(
             'message' => 'Employee Updated Successfully',
+            'alert-type' => 'success'
+        );
+        return back()->with($notification);
+    }
+
+
+    public function DestroyEmployee($id) 
+    {
+        Employee::find($id)->delete();
+        $notification = array(
+            'message' => 'Employee Removed Successfully',
+            'alert-type' => 'success'
+        );
+        return back()->with($notification);
+    }
+
+    public function RestoreEmployee($id){
+        Employee::onlyTrashed()->find($id)->restore();
+        $notification = array(
+            'message' => 'Employee Restored Successfully',
+            'alert-type' => 'success'
+        );
+        return back()->with($notification);
+    }
+
+    public function DeleteEmployee($id) 
+    {
+        $employee_photo = Employee::onlyTrashed()->find($id)->photo;
+
+        unlink('uploads/employee/'.$employee_photo);
+        Employee::onlyTrashed()->find($id)->forceDelete();
+        $notification = array(
+            'message' => 'Employee Removed From Trash Successfully',
             'alert-type' => 'success'
         );
         return back()->with($notification);

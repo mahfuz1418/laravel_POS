@@ -54,16 +54,16 @@ class SupplierController extends Controller
         return back()->with($notification);
     }
 
-    public function allSupplier()
+    public function AllSupplier()
     {
         $supplier_info = Supplier::all();
-        return view('project.supplier.all_supplier', compact('supplier_info'));
+        $trash_supplier = Supplier::onlyTrashed()->get();
+        return view('project.supplier.all_supplier', compact('supplier_info' , 'trash_supplier'));
     }
     
-    public function deleteSupplier($id)
+    public function DestroySupplier($id)
     {
-        $supplier_photo = Supplier::find($id)->photo;
-        unlink('uploads/supplier/' . $supplier_photo);
+        
         Supplier::find($id)->delete();
         $notification = array(
             'message' => 'Supplier Deleted Successfully',
@@ -72,20 +72,41 @@ class SupplierController extends Controller
         return back()->with($notification);
     }
 
-    public function viewSupplier($id)
+    public function RestoreSupplier($id){
+        Supplier::onlyTrashed()->find($id)->restore();
+        $notification = array(
+            'message' => 'Supplier Restored Successfully',
+            'alert-type' => 'success'
+        );
+        return back()->with($notification);
+    }
+
+    public function DeleteSupplier($id)
+    {
+        $supplier_photo = Supplier::onlyTrashed()->find($id)->photo;
+        unlink('uploads/supplier/' . $supplier_photo);
+        Supplier::onlyTrashed()->find($id)->forceDelete();
+        $notification = array(
+            'message' => 'Supplier Removed From Trash Successfully',
+            'alert-type' => 'success'
+        );
+        return back()->with($notification);
+    }
+
+    public function ViewSupplier($id)
     {
         $single_supplier = Supplier::find($id);
         return view('project.supplier.view_supplier', compact('single_supplier'));
 
     }
 
-    public function editSupplier($id)
+    public function EditSupplier($id)
     {
         $single_supplier = Supplier::find($id);
         return view('project.supplier.edit_supplier', compact('single_supplier'));
     }
 
-    public function updateSupplier(Request $request, $id)
+    public function UpdateSupplier(Request $request, $id)
     {
         $request->validate([
             'name'          => 'required|max:255',
