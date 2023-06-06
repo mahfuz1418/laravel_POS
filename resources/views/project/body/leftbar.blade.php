@@ -8,6 +8,10 @@
                     <a href="{{ route('dashboard') }}" class="waves-effect active"><i class="md md-home"></i><span> Dashboard </span></a>
                 </li>
 
+                <li>
+                    <a href="{{ route('dashboard') }}" class="waves-effect"><i class="md md-home"></i><span class="text-danger"><b>POS</b>  </span></a>
+                </li>
+
                 <li class="has_sub">
                     <a href="#" class="waves-effect"><i class="fa-solid fa-users"></i><span> Employees </span> <span class="pull-right"><i class="md md-add"></i></span></a>
                     <ul class="list-unstyled">
@@ -57,6 +61,33 @@
                         <li><a href="{{ route('product.index') }}">All Products</a></li>
                     </ul>
                 </li>
+
+                <li class="has_sub">
+                    <a href="#" class="waves-effect"><i class="fa-brands fa-product-hunt"></i><span> Expense </span> <span class="pull-right"><i class="md md-add"></i></span></a>
+                    <ul class="list-unstyled">
+                        <li><a href="{{ route('expense.create') }}">Add Expense</a></li>
+                        <li><a href="{{ route('expense.index') }}">Today Expense</a></li>
+                        <li><a href="{{ route('monthly.expense') }}">Monthly Expense</a></li>
+                        <li><a href="{{ route('yearly.expense') }}">Yearly Expense</a></li>
+                    </ul>
+                </li>
+
+                <li class="has_sub">
+                    <a href="#" class="waves-effect"><i class="fa-brands fa-product-hunt"></i><span> Sales Report </span> <span class="pull-right"><i class="md md-add"></i></span></a>
+                    <ul class="list-unstyled">
+                        <li><a href="">Add Expense</a></li>
+                        <li><a href="">Today Expense</a></li>
+                    </ul>
+                </li>
+
+                <li class="has_sub">
+                    <a href="#" class="waves-effect"><i class="fa-brands fa-product-hunt"></i><span> Attendence </span> <span class="pull-right"><i class="md md-add"></i></span></a>
+                    <ul class="list-unstyled">
+                        <li><a href="">Add Expense</a></li>
+                        <li><a href="">Today Expense</a></li>
+                    </ul>
+                </li>
+                
 
                
 
