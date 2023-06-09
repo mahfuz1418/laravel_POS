@@ -32,47 +32,47 @@
                             </div>
                         @endif
                         <div class="panel-body">
-                            <form action="{{ route('setting.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('setting.update', ['setting' => $setting->id]) }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
                                     <label for="name">Company Name</label>
-                                    <input type="text" class="form-control" id="name" placeholder="Enter Company Name" name="company_name">
+                                    <input type="text" class="form-control" id="name" value="{{ $setting->company_name }}" name="company_name">
                                 </div>
 
                                 <div class="form-group">
-                                    <img  style="width: 70px; height: 70px; border-radius: 50%; border: 2px solid gray" src="{{ asset('uploads/demo.png') }}" id="image" ><br>
+                                    <img  style="width: 70px; height: 70px; border-radius: 50%; border: 2px solid gray" src="{{ (!empty($setting->company_logo)) ? asset('uploads/company/'.$setting->company_logo) : asset('uploads/demo.png')}}" id="image" ><br>
                                     <label for="photo">Company Logo</label>
                                     <input type="file" class="form-control" id="photo"  name="company_logo" accept="image/*" onchange="readURL(this)" >
                                 </div>
 
                                 <div class="form-group">
                                     <label for="email">Email address</label>
-                                    <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+                                    <input type="email" class="form-control" id="email" name="email" value="{{ $setting->email }}">
                                 </div>
    
                                 <div class="form-group">
                                     <label for="phone">Phone  </label>
-                                    <input type="text" class="form-control" id="phone" placeholder="Enter Phone" name="phone">
+                                    <input type="text" class="form-control" id="phone" name="phone" value="{{ $setting->phone }}">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="address">Address  </label>
-                                    <input type="text" class="form-control" id="address" placeholder="Enter address" name="address">
+                                    <input type="text" class="form-control" id="address" name="address" value="{{ $setting->address }}">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="country">Country  </label>
-                                    <input type="text" class="form-control" id="country" placeholder="Enter Country" name="country">
+                                    <input type="text" class="form-control" id="country" name="country" value="{{ $setting->country }}">
                                 </div>
    
                                 <div class="form-group">
                                     <label for="city">City</label>
-                                    <input type="text" class="form-control" id="city" placeholder="Enter city" name="city">
+                                    <input type="text" class="form-control" id="city" name="city" value="{{ $setting->city }}">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="zip_code">City</label>
-                                    <input type="number" class="form-control" id="zip_code" placeholder="Enter ZIP Code" name="zip_code">
+                                    <input type="number" class="form-control" id="zip_code" name="zip_code" value="{{ $setting->zip_code }}">
                                 </div>
 
                                

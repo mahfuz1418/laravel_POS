@@ -90,7 +90,7 @@
                                     <input type="text" class="form-control" id="vacation" value="{{ $single_employee->vacation }}" name="vacation">
                                 </div>
                                 <div class="form-group">
-                                    <img  style="width: 70px; height: 70px; border-radius: 50%; border: 2px solid gray" src="{{ (!empty($single_employee->photo)) ?asset('uploads/employee/'.$single_employee->photo)  : asset('uploads/demo.png') }}" id="image" ><br>
+                                    <img  style="width: 70px; height: 70px; border-radius: 50%; border: 2px solid gray" src="{{ (!empty($single_employee->photo)) ? asset('uploads/employee/'.$single_employee->photo)  : asset('uploads/demo.png') }}" id="image" ><br>
                                     <label for="photo">Photo <span class="text-danger">*</span> </label>
                                     <input type="file" class="form-control" id="photo"  name="photo" accept="image/*" onchange="readURL(this)" >
                                 </div>

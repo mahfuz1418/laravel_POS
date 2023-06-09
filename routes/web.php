@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\PosController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SalaryController;
@@ -121,6 +122,9 @@ Route::middleware('auth')->group(function(){
 
     //SETTING ROUTE STRAT
     Route::resource('setting', SettingController::class);
+
+    //POS ROUTE START
+    Route::resource('pos', PosController::class);
 });
 
 

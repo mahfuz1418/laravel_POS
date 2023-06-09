@@ -9,7 +9,7 @@
                 </li>
 
                 <li>
-                    <a href="{{ route('dashboard') }}" class="waves-effect"><i class="fa-brands fa-slack"></i><span class="text-danger"><b>POS</b>  </span></a>
+                    <a href="{{ route('pos.create') }}" class="waves-effect"><i class="fa-brands fa-slack"></i><span class="text-danger"><b>POS</b>  </span></a>
                 </li>
 
                 <li class="has_sub">
