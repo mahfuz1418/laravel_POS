@@ -107,7 +107,8 @@ class ExpenseController extends Controller
     {
         $month = date('F');
         $monthly_expense = Expense::where('month', $month)->get();
-        return view('project.expense.monthly_expense', compact('monthly_expense'));
+        $total = Expense::where('month', $month)->sum('amount');
+        return view('project.expense.monthly_expense', compact('monthly_expense', 'total', 'month'));
     }
 
     public function YearlyExpense()
@@ -123,7 +124,7 @@ class ExpenseController extends Controller
         $month = 'January';
         $monthly_expense = Expense::where('month', $month)->get();
         $total = Expense::where('month', $month)->sum('amount');
-        return view('project.expense.monthly_expense', compact('monthly_expense', 'total'));
+        return view('project.expense.monthly_expense', compact('monthly_expense', 'total', 'month'));
     }
 
     public function FebruaryExpense()
@@ -131,7 +132,7 @@ class ExpenseController extends Controller
         $month = 'February';
         $monthly_expense = Expense::where('month', $month)->get();
         $total = Expense::where('month', $month)->sum('amount');
-        return view('project.expense.monthly_expense', compact('monthly_expense','total'));
+        return view('project.expense.monthly_expense', compact('monthly_expense','total', 'month'));
     }
 
     public function MarchExpense()
@@ -139,7 +140,7 @@ class ExpenseController extends Controller
         $month = 'March';
         $monthly_expense = Expense::where('month', $month)->get();
         $total = Expense::where('month', $month)->sum('amount');
-        return view('project.expense.monthly_expense', compact('monthly_expense','total'));
+        return view('project.expense.monthly_expense', compact('monthly_expense','total', 'month'));
     }
 
     public function AprilExpense()
@@ -147,7 +148,7 @@ class ExpenseController extends Controller
         $month = 'April';
         $monthly_expense = Expense::where('month', $month)->get();
         $total = Expense::where('month', $month)->sum('amount');
-        return view('project.expense.monthly_expense', compact('monthly_expense','total'));
+        return view('project.expense.monthly_expense', compact('monthly_expense','total', 'month'));
     }
 
     public function MayExpense()
@@ -155,7 +156,7 @@ class ExpenseController extends Controller
         $month = 'May';
         $monthly_expense = Expense::where('month', $month)->get();
         $total = Expense::where('month', $month)->sum('amount');
-        return view('project.expense.monthly_expense', compact('monthly_expense','total'));
+        return view('project.expense.monthly_expense', compact('monthly_expense','total', 'month'));
     }
 
     public function JuneExpense()
@@ -163,7 +164,7 @@ class ExpenseController extends Controller
         $month = 'June';
         $monthly_expense = Expense::where('month', $month)->get();
         $total = Expense::where('month', $month)->sum('amount');
-        return view('project.expense.monthly_expense', compact('monthly_expense','total'));
+        return view('project.expense.monthly_expense', compact('monthly_expense','total', 'month'));
     }
 
     public function JulyExpense()
@@ -171,7 +172,7 @@ class ExpenseController extends Controller
         $month = 'July';
         $monthly_expense = Expense::where('month', $month)->get();
         $total = Expense::where('month', $month)->sum('amount');
-        return view('project.expense.monthly_expense', compact('monthly_expense','total'));
+        return view('project.expense.monthly_expense', compact('monthly_expense','total', 'month'));
     }
 
     public function AugustExpense()
@@ -179,7 +180,7 @@ class ExpenseController extends Controller
         $month = 'August';
         $monthly_expense = Expense::where('month', $month)->get();
         $total = Expense::where('month', $month)->sum('amount');
-        return view('project.expense.monthly_expense', compact('monthly_expense','total'));
+        return view('project.expense.monthly_expense', compact('monthly_expense','total', 'month'));
     }
 
     public function SeptemberExpense()
@@ -187,7 +188,7 @@ class ExpenseController extends Controller
         $month = 'September';
         $monthly_expense = Expense::where('month', $month)->get();
         $total = Expense::where('month', $month)->sum('amount');
-        return view('project.expense.monthly_expense', compact('monthly_expense','total'));
+        return view('project.expense.monthly_expense', compact('monthly_expense','total', 'month'));
     }
 
     public function OctoberExpense()
@@ -195,7 +196,7 @@ class ExpenseController extends Controller
         $month = 'October';
         $monthly_expense = Expense::where('month', $month)->get();
         $total = Expense::where('month', $month)->sum('amount');
-        return view('project.expense.monthly_expense', compact('monthly_expense','total'));
+        return view('project.expense.monthly_expense', compact('monthly_expense','total', 'month'));
     }
 
     public function NovemberExpense()
@@ -203,7 +204,7 @@ class ExpenseController extends Controller
         $month = 'November';
         $monthly_expense = Expense::where('month', $month)->get();
         $total = Expense::where('month', $month)->sum('amount');
-        return view('project.expense.monthly_expense', compact('monthly_expense','total'));
+        return view('project.expense.monthly_expense', compact('monthly_expense','total', 'month'));
     }
 
     public function DecemberExpense()
@@ -211,6 +212,6 @@ class ExpenseController extends Controller
         $month = 'December';
         $monthly_expense = Expense::where('month', $month)->get();
         $total = Expense::where('month', $month)->sum('amount');
-        return view('project.expense.monthly_expense', compact('monthly_expense', 'total'));
+        return view('project.expense.monthly_expense', compact('monthly_expense', 'total', 'month'));
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AttendenceController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeController;
@@ -7,6 +8,7 @@ use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SalaryController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 
@@ -110,8 +112,15 @@ Route::middleware('auth')->group(function(){
     Route::get('/november-expense', [ExpenseController::class, 'NovemberExpense'])->name('november.expense');
     Route::get('/december-expense', [ExpenseController::class, 'DecemberExpense'])->name('december.expense');
 
+    //ATTENDENCE ROUTE START
+    Route::resource('attendence', AttendenceController::class);
+    Route::get('/edit-attendence/{att_date}', [AttendenceController::class, 'EditAttendence'])->name('edit.attendence');
+    Route::post('/update-attendence/{att_date}', [AttendenceController::class, 'UpdateAttendence'])->name('Update.attendence');
+    Route::get('/show-attendence/{att_date}', [AttendenceController::class, 'ShowAttendence'])->name('show.attendence');
+    Route::get('/delete-attendence/{att_date}', [AttendenceController::class, 'DeleteAttendence'])->name('delete.attendence');
 
-
+    //SETTING ROUTE STRAT
+    Route::resource('setting', SettingController::class);
 });
 
 

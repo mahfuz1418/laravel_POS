@@ -9,7 +9,7 @@
                 </li>
 
                 <li>
-                    <a href="{{ route('dashboard') }}" class="waves-effect"><i class="md md-home"></i><span class="text-danger"><b>POS</b>  </span></a>
+                    <a href="{{ route('dashboard') }}" class="waves-effect"><i class="fa-brands fa-slack"></i><span class="text-danger"><b>POS</b>  </span></a>
                 </li>
 
                 <li class="has_sub">
@@ -63,7 +63,7 @@
                 </li>
 
                 <li class="has_sub">
-                    <a href="#" class="waves-effect"><i class="fa-brands fa-product-hunt"></i><span> Expense </span> <span class="pull-right"><i class="md md-add"></i></span></a>
+                    <a href="#" class="waves-effect"><i class="fa-solid fa-money-bill-wave"></i><span> Expense </span> <span class="pull-right"><i class="md md-add"></i></span></a>
                     <ul class="list-unstyled">
                         <li><a href="{{ route('expense.create') }}">Add Expense</a></li>
                         <li><a href="{{ route('expense.index') }}">Today Expense</a></li>
@@ -73,20 +73,30 @@
                 </li>
 
                 <li class="has_sub">
-                    <a href="#" class="waves-effect"><i class="fa-brands fa-product-hunt"></i><span> Sales Report </span> <span class="pull-right"><i class="md md-add"></i></span></a>
+                    <a href="#" class="waves-effect"><i class="fa-regular fa-file"></i><span> Sales Report </span> <span class="pull-right"><i class="md md-add"></i></span></a>
                     <ul class="list-unstyled">
-                        <li><a href="">Add Expense</a></li>
-                        <li><a href="">Today Expense</a></li>
+                        <li><a href="">Add </a></li>
+                        <li><a href="">kophu </a></li>
                     </ul>
                 </li>
 
                 <li class="has_sub">
-                    <a href="#" class="waves-effect"><i class="fa-brands fa-product-hunt"></i><span> Attendence </span> <span class="pull-right"><i class="md md-add"></i></span></a>
+                    <a href="#" class="waves-effect"><i class="fa-solid fa-hand"></i><span> Attendence </span> <span class="pull-right"><i class="md md-add"></i></span></a>
                     <ul class="list-unstyled">
-                        <li><a href="">Add Expense</a></li>
-                        <li><a href="">Today Expense</a></li>
+                        <li><a href="{{ route('attendence.create') }}">Take Attendence</a></li>
+                        <li><a href="{{ route('attendence.index') }}">All Attendence</a></li>
                     </ul>
                 </li>
+
+                <li class="has_sub">
+                    <a href="#" class="waves-effect"><i class="fa-solid fa-gear"></i><span> Settings </span> <span class="pull-right"><i class="md md-add"></i></span></a>
+                    <ul class="list-unstyled">
+                        <li><a href="{{ route('setting.create') }}">Add Company Data</a></li>
+                        <li><a href="{{ route('setting.index') }}">View Company Data</a></li>
+                    </ul>
+                </li>
+
+                
                 
 
                

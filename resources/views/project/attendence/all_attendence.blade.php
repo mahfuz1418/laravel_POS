@@ -7,36 +7,21 @@
             <!-- Page-Title -->
             <div class="row">
                 <div class="col-sm-12">
-                    <h4 class="pull-left page-title text-danger">Date: {{ date('d M Y') }}</h4>
+                    <h4 class="pull-left page-title">Datatable</h4>
                     <ol class="breadcrumb pull-right">
                         <li><a href="#">Moltran</a></li>
                         <li><a href="#">Tables</a></li>
-                        <li class="active">Today Expense</li>
+                        <li class="active">Datatable</li>
                     </ol>
                 </div>
             </div>
-
-            <div>
-                <a href="{{ route('january.expense') }}" class="btn btn-info">January</a>
-                <a href="{{ route('february.expense') }}" class="btn btn-danger">February</a>
-                <a href="{{ route('march.expense') }}" class="btn btn-primary">March</a>
-                <a href="{{ route('april.expense') }}" class="btn btn-secondary">April</a>
-                <a href="{{ route('may.expense') }}" class="btn btn-warning">May</a>
-                <a href="{{ route('june.expense') }}" class="btn btn-success">June</a>
-                <a href="{{ route('july.expense') }}" class="btn btn-danger">July</a>
-                <a href="{{ route('august.expense') }}" class="btn btn-primary">August</a>
-                <a href="{{ route('september.expense') }}" class="btn btn-secondary">September</a>
-                <a href="{{ route('october.expense') }}" class="btn btn-warning">October</a>
-                <a href="{{ route('november.expense') }}" class="btn btn-success">November</a>
-                <a href="{{ route('december.expense') }}" class="btn btn-info">December</a>
-            </div>
-            <br>
 
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel panel-default">
                         <div class="panel-heading" style="display: flex; justify-content: space-between">
-                            <h3 class="panel-title text-danger" >{{ $month }} Expense</h3>
+                            <h3 class="panel-title">All Attendence</h3>
+                            <a class="btn btn-danger" href="{{ route('attendence.create') }}">Take Attendence</a>
 
                         </div>
 
@@ -47,25 +32,27 @@
                                         <thead>
                                             <tr>
                                                 <th>SL NO</th>
-                                                <th>Details</th>
                                                 <th>Date</th>
-                                                <th>Amount</th>
+                                                <th>Action</th>
                                             </tr>
-                                        </thead>    
+                                        </thead>
                                         <tbody>
-                                            @foreach($monthly_expense as $data)     
-                                                <tr>
-                                                    <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $data->details }}</td>  
-                                                    <td>{{ $data->date }}</td>  
-                                                    <td>{{ $data->amount }} /= </td>  
-                                                </tr>
+                                            @foreach($attendence as $data)     
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $data->att_date }}</td>
+                                                <td>
+                                                   
+                                                    <a href="{{ route('show.attendence', ['att_date' => $data->att_date]) }}" class="btn btn-warning"><i class="fa-solid fa-eye"></i></a>
+                                                    <a href="{{ route('edit.attendence', ['att_date' => $data->att_date]) }}" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i></a>
+                                                    
+                                                    <button value="{{ route('delete.attendence', ['att_date' => $data->att_date]) }}" class="btn btn-danger delete"><i class="fa-solid fa-circle-minus"></i></button>
+                                                </td>
+                                            </tr>
                                             @endforeach
                                         </tbody>
-                                        
                                     </table>
-                                   
-                                    <h3>Total Expense: <span class="text-danger">{{ $total }} tk</span> </h3>
+
                                 </div>
                             </div>
                         </div>
@@ -80,6 +67,7 @@
 
 
 @endsection
+
 
 @section('script')
     
