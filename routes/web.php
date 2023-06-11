@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AttendenceController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeController;
@@ -125,6 +126,11 @@ Route::middleware('auth')->group(function(){
 
     //POS ROUTE START
     Route::resource('pos', PosController::class);
+
+    //CART ROUTE START
+    Route::post('/add-cart', [CartController::class, 'AddCart'])->name('add.cart');
+    Route::post('/update-cart/{rowId}', [CartController::class, 'UpdateCart'])->name('update.cart');
+    Route::get('/remove-cart/{rowId}', [CartController::class, 'RemoveCart'])->name('remove.cart');
 });
 
 

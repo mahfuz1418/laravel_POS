@@ -8,7 +8,7 @@
 
             <!-- Page-Title -->
             <div class="row">
-                <div class="col-sm-12 bg-info ">
+                <div class="col-sm-12 bg-primary ">
                     <h4 class="pull-left page-title text-white">POS (Point Of Sale)</h4>
                     <ol class="breadcrumb pull-right">
                         <li class="text-white">Date: {{ date('d/m/y') }}</li>
@@ -19,14 +19,14 @@
             
                  <h4 class="text-info">Categories</h4>
                 @foreach($categories as $category)
-                    <span class="label label-success">{{ $category->cat_name }}</span>
+                    <span class="label label-danger">{{ $category->cat_name }}</span>
                 @endforeach
 
            
             <br>
             <br>
             <div class="row "> 
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <h3 class="bg-primary text-white">Customer <button class="btn btn-warning btn-sm pull-right waves-effect waves-light" data-toggle="modal" data-target="#con-close-modal">Add New</button> </h3>
                     <select name="customer_name" id="" class="form-control">
                         <option value="" selected disabled >Select a customer</option>
@@ -43,34 +43,52 @@
                                             <th>Name</th>
                                             <th>Quantity</th>
                                             <th>Price</th>
-                                            <th>Total Price</th>
+                                            <th>Total</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
-                                    
+                                    @php
+                                       $show_cart = Cart::content();
+                                    @endphp
                                     <tbody>
-                                        <tr>
-                                            <td>asd</td>
-                                            <td><input style="width: 60px" type="number" name="" id=""></td>
-                                            <td>200/=</td>
-                                            <td>400/=</td>
-                                        </tr>
+                                        @foreach($show_cart as $show)
+                                            <tr>
+                                                <td>{{ $show->name }}</td>
+                                                <td>
+                                                    <form action="{{ route('update.cart', $show->rowId ) }}" method="post">
+                                                    @csrf
+                                                    <input style="width: 40px" type="number" name="qty" min="1" value="{{ $show->qty }}">
+                                                    <button type="submit" style="margin-top: -2px" class="btn btn-success"><i class="fa-solid fa-check"></i></button>
+                                                    </form>
+                                                </td>
+                                                <td>{{ $show->price }}</td>
+                                                <td>{{ $show->price*$show->qty }}</td>
+                                                <td>
+                                                    <a href="{{ route('remove.cart', $show->rowId) }}" class="text-danger btn"><i class="fa-solid fa-trash-can"></i></a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        
                                     </tbody>
                                 
                                 </table> 
                             </div>
                             
                             <div class="pricing-header bg-primary">
-                                <h4 class="text-white">Quantity: 23<span class="text-white">
+                                <h4 class="text-white">Quantity: {{ Cart::count() }}<span class="text-white">
                                 </span></h4>
-                                <h4 class="text-white">Product: 34<span class="text-white">
+                                <h4 class="text-white">Sub Total: {{ Cart::subtotal() }}<span class="text-white">
                                 </span></h4>
-                                <h3 class="text-white">Total Price: 500 /=<span class="text-white">
+                                <h4 class="text-white">Vat: {{ Cart::tax() }}<span class="text-white">
+                                </span><span style="font-size: 14px; font-weight:normal">(Included 2% vat)</span></h4>
+                                <h3 class="text-white">Total Price: {{ Cart::total() }} /=<span class="text-white">
                                     </span></h3>
                             </div>
                             <button class="btn btn-primary waves-effect waves-light w-md">Submit</button>
                         </div> <!-- end Pricing_card -->
                 </div>
-                <div class="col-md-8">
+
+                <div class="col-md-6">
                     <table id="datatable" class="table table-striped table-bordered">
                         <thead>
                             <tr>
@@ -78,17 +96,27 @@
                                 <th>Product Name</th>
                                 <th>Product Code</th>
                                 <th>Product Category</th> 
+                                <th>Add</th> 
                             </tr>
                         </thead>
                 
                         <tbody>
-                            @foreach($products as $product)     
+                            @foreach($products as $product)   
                             <tr>
-                                <td><a href=""><i class="fa-solid fa-square-plus text-primary" style="font-size: 25px"></i></a> <img height="70" width="70" src="{{ asset('uploads/product') }}/{{ $product->product_image  }}" alt=""></td>
-                                <td>{{ $product->product_name }}</td>
-                                <td>{{ $product->product_code }}</td>
-                                <td>{{ $product->category->cat_name }}</td>
-                            </tr>
+                                    <form action="{{ route('add.cart') }}" method="post">
+                                    @csrf
+                                            <input type="hidden" name="id" value="{{ $product->id }}">
+                                            <input type="hidden" name="name" value="{{ $product->product_name }}">
+                                            <input type="hidden" name="qty" value="1">
+                                            <input type="hidden" name="price" value="{{ $product->selling_price }}">
+
+                                            <td><img height="70" width="70" src="{{ asset('uploads/product') }}/{{ $product->product_image  }}" alt=""></td>
+                                            <td>{{ $product->product_name }}</td>
+                                            <td>{{ $product->product_code }}</td>
+                                            <td>{{ $product->category->cat_name }}</td>
+                                            <td><button type="submit" class="btn"><i class="fa-solid fa-square-plus text-primary" style="font-size: 25px"></i></button> </td>
+                                    </form>  
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>
@@ -111,7 +139,8 @@
                 <h4 class="modal-title">Add Customer</h4> 
             </div> 
             <div class="modal-body"> 
-        
+        <form action="{{ route('store.customer') }}" method="post" enctype="multipart/form-data">
+            @csrf
                 <div class="row"> 
                     <div class="col-md-4"> 
                         <div class="form-group"> 
@@ -122,7 +151,7 @@
                     <div class="col-md-4"> 
                         <div class="form-group"> 
                             <label for="field-5" class="control-label">Email</label> 
-                            <input type="text" class="form-control" id="field-5" placeholder="Email" name="email"> 
+                            <input type="email" class="form-control" id="field-5" placeholder="Email" name="email"> 
                         </div> 
                     </div> 
                     <div class="col-md-4"> 
@@ -201,8 +230,9 @@
             </div> 
             <div class="modal-footer"> 
                 <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button> 
-                <button type="button" class="btn btn-info waves-effect waves-light">Save changes</button> 
+                <button type="submit" class="btn btn-info waves-effect waves-light">Submit</button> 
             </div> 
+        </form>
         </div> 
     </div>
 </div><!-- /.modal -->
