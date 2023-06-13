@@ -10,6 +10,7 @@ use App\Http\Controllers\PosController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SalaryController;
+use App\Http\Controllers\SalesReport;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
@@ -126,11 +127,24 @@ Route::middleware('auth')->group(function(){
 
     //POS ROUTE START
     Route::resource('pos', PosController::class);
+    Route::post('/invoice', [PosController::class, 'ViewInvoice'])->name('view.invoice');
+    Route::get('/pending-order', [PosController::class, 'PendingOrder'])->name('pending.order');
+    Route::get('/approved-order', [PosController::class, 'ApprovedOrder'])->name('approved.order');
+    Route::get('/confirm-order/{id}', [PosController::class, 'ConfirmOrder'])->name('confirm.order');
 
-    //CART ROUTE START
+    //SHOPPING CART ROUTE START
     Route::post('/add-cart', [CartController::class, 'AddCart'])->name('add.cart');
     Route::post('/update-cart/{rowId}', [CartController::class, 'UpdateCart'])->name('update.cart');
     Route::get('/remove-cart/{rowId}', [CartController::class, 'RemoveCart'])->name('remove.cart');
+    Route::post('/invoice', [CartController::class, 'ViewInvoice'])->name('view.invoice');
+    Route::post('/final-invoice', [CartController::class, 'FinalInvoice'])->name('final.invoice');
+    Route::post('/update-invoice/{id}', [CartController::class, 'UpdateInvoice'])->name('update.invoice');
+
+    //SALES REPORT
+    Route::get('/today-sales-report', [SalesReport::class, 'SalesReport'])->name('sales.report');
+    Route::get('/all-sales-report', [SalesReport::class, 'AllSalesReport'])->name('all.sales.report');
+    Route::post('/date-sales-report', [SalesReport::class, 'DateSalesReport'])->name('date.sales.report');
+
 });
 
 

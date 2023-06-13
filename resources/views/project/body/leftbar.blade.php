@@ -73,10 +73,18 @@
                 </li>
 
                 <li class="has_sub">
+                    <a href="#" class="waves-effect"><i class="fa-solid fa-clipboard"></i><span> Order </span> <span class="pull-right"><i class="md md-add"></i></span></a>
+                    <ul class="list-unstyled">
+                        <li><a href="{{ route('pending.order') }}">Pending Orders </a></li>
+                        <li><a href="{{ route('approved.order') }}">Approved Order </a></li>
+                    </ul>
+                </li>
+
+                <li class="has_sub">
                     <a href="#" class="waves-effect"><i class="fa-regular fa-file"></i><span> Sales Report </span> <span class="pull-right"><i class="md md-add"></i></span></a>
                     <ul class="list-unstyled">
-                        <li><a href="">Add </a></li>
-                        <li><a href="">kophu </a></li>
+                        <li><a href="{{ route('sales.report') }}">Today Sales Report</a></li>
+                        <li><a href="{{ route('all.sales.report') }}">All Sales Report</a></li>
                     </ul>
                 </li>
 

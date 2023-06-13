@@ -27,13 +27,7 @@
             <br>
             <div class="row "> 
                 <div class="col-md-6">
-                    <h3 class="bg-primary text-white">Customer <button class="btn btn-warning btn-sm pull-right waves-effect waves-light" data-toggle="modal" data-target="#con-close-modal">Add New</button> </h3>
-                    <select name="customer_name" id="" class="form-control">
-                        <option value="" selected disabled >Select a customer</option>
-                        @foreach($customers as $customer)
-                            <option value="{{ $customer->id }}">{{ $customer->name }}</option>
-                        @endforeach
-                    </select>
+                    
                     <br>
                         <div class="price_card text-center">
                             <div>
@@ -57,7 +51,7 @@
                                                 <td>
                                                     <form action="{{ route('update.cart', $show->rowId ) }}" method="post">
                                                     @csrf
-                                                    <input style="width: 40px" type="number" name="qty" min="1" value="{{ $show->qty }}">
+                                                    <input  style="width: 40px" type="number" name="qty" min="1" value="{{ $show->qty }}">
                                                     <button type="submit" style="margin-top: -2px" class="btn btn-success"><i class="fa-solid fa-check"></i></button>
                                                     </form>
                                                 </td>
@@ -80,11 +74,30 @@
                                 <h4 class="text-white">Sub Total: {{ Cart::subtotal() }}<span class="text-white">
                                 </span></h4>
                                 <h4 class="text-white">Vat: {{ Cart::tax() }}<span class="text-white">
-                                </span><span style="font-size: 14px; font-weight:normal">(Included 2% vat)</span></h4>
+                                </span><span style="font-size: 14px; font-weight:normal">(Included 10% vat)</span></h4>
+                                <hr>
                                 <h3 class="text-white">Total Price: {{ Cart::total() }} /=<span class="text-white">
                                     </span></h3>
+                                    <br>
                             </div>
-                            <button class="btn btn-primary waves-effect waves-light w-md">Submit</button>
+                            <br>
+
+                            <form action="{{ route('view.invoice') }}" method="post">
+                                @csrf
+                                <h3 class="bg-primary text-white">Add Customer <button class="btn btn-warning btn-sm pull-right waves-effect waves-light" data-toggle="modal" data-target="#con-close-modal" style="margin: 0">Add New</button> </h3> 
+                                <select name="customer_name" id="" class="form-control">
+                                    <option value="" selected disabled >Select a customer</option>
+                                    @foreach($customers as $customer)
+                                        <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('customer_name')
+                                    <p class="text-danger" style="text-align:left">Please Select a customer before submit</p>
+                                @enderror
+
+                                <button class="btn btn-primary waves-effect waves-light w-md">Create Invoice</button>
+                            </form>
+                            
                         </div> <!-- end Pricing_card -->
                 </div>
 
