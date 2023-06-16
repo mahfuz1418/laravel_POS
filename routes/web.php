@@ -96,6 +96,8 @@ Route::middleware('auth')->group(function(){
     Route::resource('product', ProductController::class);
     Route::get('/product-restore/{id}', [ProductController::class, 'restore'])->name('product.restore');
     Route::get('/product-delete/{id}', [ProductController::class, 'delete'])->name('product.delete');
+    Route::get('/product-export', [ProductController::class, 'export'])->name('product.export');
+    Route::post('/product-import', [ProductController::class, 'import'])->name('product.import');
 
     // EXPENSE ROUTE START
     Route::resource('expense', ExpenseController::class);

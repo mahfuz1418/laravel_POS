@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ProductsExport;
+use App\Imports\ProductsImport;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
@@ -193,4 +196,22 @@ class ProductController extends Controller
         );
         return back()->with($notification);
     }
+
+    public function export() 
+    {
+        return Excel::download(new ProductsExport, 'products.xlsx');
+    }
+
+    public function import(Request $request) 
+    {
+        Excel::import(new ProductsImport, $request->file('import_file'));
+        
+        $notification = array(
+            'message' => 'Product imported by excel file',
+            'alert-type' => 'success'
+        );
+        return back()->with($notification);
+    }
+
+
 }

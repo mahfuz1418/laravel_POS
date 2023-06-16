@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 
@@ -12,8 +13,11 @@ class AdvanceSalary extends Model
     use HasFactory;
     protected $guarded = [];
 
-    public function employee(): HasOne
+    
+
+    public function employee(): BelongsTo
     {
-        return $this->hasOne(Employee::class, 'emp_id');
+        return $this->belongsTo(Employee::class, 'emp_id');
     }
+
 }

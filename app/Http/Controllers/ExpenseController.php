@@ -214,4 +214,6 @@ class ExpenseController extends Controller
         $total = Expense::where('month', $month)->sum('amount');
         return view('project.expense.monthly_expense', compact('monthly_expense', 'total', 'month'));
     }
+
+
 }

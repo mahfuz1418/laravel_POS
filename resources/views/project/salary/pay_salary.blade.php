@@ -40,12 +40,16 @@
                                         </thead>    
                                         <tbody>
                                             @foreach($employee as $data)     
+                                    
                                             <tr>
                                                 <td>{{ $data->name }}</td>
                                                 <td> <img height="70" width="70" src=" {{ (!empty($data->photo)) ? asset('uploads/employee/'. $data->photo) : asset('uploads/demo.png') }}" alt=""></td>
                                                 <td>{{ $data->salary }}</td>
                                                 <td>{{ date("F", strtotime("-1 month")) }}</td>
-                                                <td></td>
+                                                <td>
+                                                   
+                                                     {{-- {{ $data->advance->advance_salary }}  --}}
+                                                </td>
                                                 <td>
                                                     <a href="" class="btn btn-info"> Pay Now </a>
                                                 </td>

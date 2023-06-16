@@ -111,7 +111,14 @@
                                             @endforeach
                                         </tbody>
                                     </table>
-
+                                    <div  style="margin-top: 20px">
+                                        <a class="btn btn-warning" href="{{ route('product.export') }}">Export Product</a> <br> <br>
+                                        <form action="{{ route('product.import') }}" method="post"  enctype="multipart/form-data">
+                                            @csrf
+                                            <input class="form-control" type="file" name="import_file" id=""> 
+                                            <button href="" class="btn btn-info">Import Product</button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>

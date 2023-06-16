@@ -115,6 +115,11 @@ class SalaryController extends Controller
     public function PaySalary()
     {
         $employee = Employee::all();
+        // $employee = DB::table('employees')
+        //             ->join('advance_salaries', 'employees.id', 'advance_salaries.emp_id')
+        //             ->select('employees.*', 'advance_salaries.*')
+        //             ->get();
         return view('project.salary.pay_salary', compact('employee'));
+        // return $employee;
     }
 }

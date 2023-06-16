@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Employee extends Model
@@ -12,8 +13,10 @@ class Employee extends Model
     use HasFactory , SoftDeletes;
     protected $guarded = [];
     
-    public function advance_salary(): BelongsTo
+    public function advance(): HasOne
     {
-        return $this->belongsTo(AdvanceSalary::class, 'emp_id');
+        return $this->hasOne(AdvanceSalary::class, 'emp_id');
     }
+
+
 }
