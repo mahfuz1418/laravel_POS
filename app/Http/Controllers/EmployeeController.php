@@ -40,6 +40,7 @@ class EmployeeController extends Controller
             'nid_no' => $request->nid_no,
             'experience' => $request->experience,
             'salary' => $request->salary,
+            'salary_month' => date('F'),
             'vacation' => $request->vacation,
             'created_at' => now(),
         ]);

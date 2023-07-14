@@ -43,7 +43,7 @@ class CustomerController extends Controller
                 'bank_branch'    => $request->bank_branch,
                 'account_name'   => $request->account_name,
                 'account_number' => $request->account_number,
-                'created_at' => now(),
+                'created_at'     => now(),
             ]);
         } else {
             Customer::insert([

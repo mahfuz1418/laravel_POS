@@ -9,10 +9,10 @@
                 <!-- Page-Title -->
                 <div class="row">
                     <div class="col-sm-12">
-                        <h4 class="pull-left page-title">Pay Advance Salary</h4>
+                        <h4 class="pull-left page-title">Pay Salary</h4>
                         <ol class="breadcrumb pull-right">
                             <li><a href="#">Inventory</a></li>
-                            <li class="active">Pay Advance Salary</li>
+                            <li class="active">Pay Salary</li>
                         </ol>
                     </div>
                 </div>
@@ -22,21 +22,12 @@
 
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title">Pay Advance Salary 
+                                <h3 class="panel-title">Pay Salary 
                                     <span class="pull-right text-danger">{{ date("d / M / Y") }}</span>
                                 </h3>
                             </div>
-                            @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
                             <div class="panel-body">
-                                <form action="{{ route('advance.store', ['id' => $employee->id]) }}" method="post">
+                                <form action="{{ route('pay.confirm', ['id' => $employee->id]) }}" method="post">
                                     @csrf
 
 
@@ -59,7 +50,7 @@
                                     <div class="form-group">
                                         <div class="row ">
                                             <div class="col-md-4"> <label>Month :</label> </div>
-                                            <div class="col-md-8"> <input type="text" value="{{ date('M') }}" disabled class="form-control">  </div>
+                                            <div class="col-md-8"><label >{{  date("F", strtotime("-1 month"))  }}</label></div>
                                         </div>     
                                     </div>
 
@@ -67,6 +58,20 @@
                                         <div class="row ">
                                             <div class="col-md-4"> <label>Salary :</label> </div>
                                             <div class="col-md-8"><label>{{ $employee->salary }}</label></div>
+                                        </div>     
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="row ">
+                                            <div class="col-md-4"> <label>Advance Salary :</label> </div>
+                                            <div class="col-md-8"><label>{{ $advance }}</label></div>
+                                        </div>     
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="row ">
+                                            <div class="col-md-4"> <label>Due Salary :</label> </div>
+                                            <div class="col-md-8"><label>{{ $employee->salary - $advance }}</label></div>
                                         </div>     
                                     </div>
 
@@ -83,12 +88,12 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="row ">
-                                            <div class="col-md-4"> <label>Pay Advance Amount :</label> </div>
-                                            <div class="col-md-8"><input type="number" name="pay_advance" class="form-control" placeholder="Advance Amount"></div>
+                                            <div class="col-md-4"> <label>Pay Amount :</label> </div>
+                                            <div class="col-md-8"><input type="number" name="paid_amount" class="form-control"></div>
                                         </div>     
                                     </div>
 
-                                    <button class="btn btn-success">Pay Advance</button>
+                                    <button class="btn btn-success">Pay Confirm</button>
                                 </form>
                             </div><!-- panel-body -->
                         </div> <!-- panel -->

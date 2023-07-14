@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('nid_no')->nullable();
             $table->string('experience');
             $table->string('salary');
+            $table->string('salary_status')->default('unpaid');
+            $table->string('salary_month')->nullable();
             $table->string('vacation');
             $table->timestamps();
             $table->softDeletes(); 

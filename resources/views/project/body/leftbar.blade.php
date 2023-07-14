@@ -39,10 +39,8 @@
                 <li class="has_sub">
                     <a href="#" class="waves-effect"><i class="fa-solid fa-hand-holding-dollar"></i><span> Salary (EMP) </span> <span class="pull-right"><i class="md md-add"></i></span></a>
                     <ul class="list-unstyled">
-                        <li><a href="{{ route('add.advance.salary') }}">Add Advance Salary</a></li>
-                        <li><a href="{{ route('all.advance.salary') }}">All Advance Salary</a></li>
                         <li><a href="{{ route('pay.salary') }}">Pay Salary</a></li>
-                        <li><a href="{{ route('all.advance.salary') }}">Paid Salary</a></li>
+                        <li><a href="{{ route('salary.data') }}">Salary Data</a></li>
                     </ul>
                 </li>
 

@@ -10,116 +10,121 @@ use Illuminate\Support\Facades\DB;
 
 class SalaryController extends Controller
 {
-    public function AddAdvanceSalary()
+    public function paySalary()
     {
-        return view('project.salary.add_advance_salary' );
+        $prev_month = date("F", strtotime("-1 month"));
+        $employee = Employee::all();
+        return view('project.salary.pay_salary', compact('employee'));
+        // return $employee;
     }
 
-    public function StoreAdvanceSalary(Request $request)
+    public function payNow($id)
+    {
+        $employee = Employee::find($id);    
+        $advance = AdvanceSalary::where('emp_id', $id)->value('advance_salary');
+        return view('project.salary.pay_now', compact('employee', 'advance'));
+        // return $advance;
+    }
+
+    public function payConfirm(Request $request, $id)
     {
         $request->validate([
-            'emp_id'         => 'required',
-            'advance_salary' => 'required',
-            'month'          => 'required',
-            'year'           => 'required',
+            'paid_amount' => 'required|integer',
         ]);
 
-        $emp_id = $request->emp_id;
-        $month  = $request->month;
-        $year   = $request->year;
+        $employee = Employee::find($id); 
+        $month = Employee::where('id', $id)->value('salary_month');   
+        $status = Employee::where('id', $id)->value('salary_status');   
+        $emp_id = Salary::where('emp_id', $id)->value('emp_id');   
 
-        $advance = AdvanceSalary::where('emp_id', $emp_id)
-                                ->where('month', $month)
-                                ->where('year', $year)
-                                ->first();
-
-        if ($advance === NULL) {
-            AdvanceSalary::insert([
-                'emp_id'         => $request->emp_id,
-                'month'          => $request->month,
-                'year'           => $request->year,
-                'advance_salary' => $request->advance_salary,
-                'created_at'     => now(),
-            ]);
-    
+        if ($emp_id == $id && $month == date("F", strtotime("-1 month")) && $status == 'paid') {
+            
             $notification = array(
-                'message'    => 'Advance Salary Given Successfully',
-                'alert-type' => 'success'
-            );
-            return back()->with($notification);
-
-
-        } else {
-            $notification = array(
-                'message' => 'Already Advance given to this employee on this month!!',
+                'message' => 'Salary Allready given on ' . $month,
                 'alert-type' => 'error'
             );
             return back()->with($notification);
 
+        } else {
+
+            Salary::insert([
+                'emp_id'         => $id,
+                'salary'         => $employee->salary,
+                'paid_amount'    => $request->paid_amount,
+                'payment_method' => $request->payment_method,
+                'month'          => date("F", strtotime("-1 month")),
+                'year'           => date("Y"),
+                'status'         => 'paid',
+                'created_at'     => now(),
+            ]);
+
+            Employee::find($id)->update([
+                'salary_month'  => date("F", strtotime("-1 month")),
+                'salary_status' => 'paid',
+            ]);
+
+            $notification = array(
+                'message' => 'Salary Successfully Given To Employee',
+                'alert-type' => 'success'
+            );
+            return back()->with($notification);
+        }
+        
+    }
+
+    public function salaryData()
+    {
+        return view('project.salary.salary_data');
+    }
+
+    public function advanceSalary($id)
+    {
+        $employee = Employee::find($id);    
+        return view('project.salary.add_advance_salary', compact('employee'));
+    }
+
+    public function advanceStore(Request $request, $id)
+    {
+        $request->validate([
+            'pay_advance' => 'required',
+        ]);
+        $salary = Employee::find($id)->value('salary');
+
+        if ($salary < $request->pay_advance) {
+            $notification = array(
+                'message' => "You cann't pay advance out of salary range!",
+                'alert-type' => 'error'
+            );
+            return back()->with($notification);
+        } else {
+            $advance_check = AdvanceSalary::where('emp_id', $id)->value('advance_salary');
+
+            if ($advance_check == NULL) {
+                AdvanceSalary::insert([
+                    'emp_id'          => $id,
+                    'advance_salary'  => $request->pay_advance,
+                    'month'           => date('M'),
+                    'year'            => date("Y"),
+                    'created_at'      => now(),
+                    ]);
+    
+                $notification = array(
+                    'message' => "Advance Given To Employee",
+                    'alert-type' => 'success'
+                );
+                return back()->with($notification);
+            } else {
+                $notification = array(
+                    'message' => "You can give advance in a month only one!",
+                    'alert-type' => 'error'
+                );
+                return back()->with($notification);
+            }
+            
+            
         }
         
 
         
-
-    }
-
-    public function AllAdvanceSalary()
-    {
-        $employee = DB::table('employees')
-                    ->join('advance_salaries', 'employees.id', 'advance_salaries.emp_id')
-                    ->select('advance_salaries.*', 'employees.*')
-                    ->get();
-
-        return view('project.salary.all_advance_salary', compact( 'employee'));
-    }
-
-    public function EditAdvanceSalary($id)
-    {
-        $employee_data = AdvanceSalary::find($id);
-        return view('project.salary.edit_advance_salary', compact('employee_data'));
-    }
-
-    public function UpdateAdvanceSalary(Request $request, $id)
-    {
-        $request->validate([
-            'advance_salary' => 'required',
-            'month'          => 'required',
-            'year'           => 'required',
-        ]);
-
-        AdvanceSalary::find($id)->update([
-            'month'          => $request->month,
-            'year'           => $request->year,
-            'advance_salary' => $request->advance_salary,
-            'created_at'     => now(),
-        ]);
-
-        $notification = array(
-            'message' => 'Advance Salary Data Updated Successfully',
-            'alert-type' => 'success'
-        );
-        return back()->with($notification);
-    }
-
-    public function DestroyAdvanceSalary($id)
-    {
-        AdvanceSalary::find($id)->delete();
-
-        $notification = array(
-            'message' => 'Advance Salary Data Deleted Successfully',
-            'alert-type' => 'success'
-        );
-        return back()->with($notification);
-    }
-
-    public function PaySalary()
-    {
-        $employee = Employee::all();
-        // $employee = DB::table('employees')
-        //             ->join('advance_salaries', 'employees.id', 'advance_salaries.emp_id')
-        //             ->select('employees.*', 'advance_salaries.*')
-        //             ->get();
-        return view('project.salary.pay_salary', compact('employee'));
-        // return $employee;
     }
 }

@@ -18,5 +18,10 @@ class Employee extends Model
         return $this->hasOne(AdvanceSalary::class, 'emp_id');
     }
 
+    public function salary_data(): HasOne
+    {
+        return $this->hasOne(Salary::class, 'emp_id');
+    }
+
 
 }

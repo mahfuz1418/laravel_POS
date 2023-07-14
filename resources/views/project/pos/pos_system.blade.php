@@ -82,9 +82,9 @@
                             </div>
                             <br>
 
+                            <h3 class="bg-primary text-white">Add Customer <button class="btn btn-warning btn-sm pull-right waves-effect waves-light" data-toggle="modal" data-target="#con-close-modal" style="margin: 0">Add New</button> </h3> 
                             <form action="{{ route('view.invoice') }}" method="post">
                                 @csrf
-                                <h3 class="bg-primary text-white">Add Customer <button class="btn btn-warning btn-sm pull-right waves-effect waves-light" data-toggle="modal" data-target="#con-close-modal" style="margin: 0">Add New</button> </h3> 
                                 <select name="customer_name" id="" class="form-control">
                                     <option value="" selected disabled >Select a customer</option>
                                     @foreach($customers as $customer)

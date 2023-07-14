@@ -76,13 +76,13 @@ Route::middleware('auth')->group(function(){
     Route::post('/update-supplier/{id}', [SupplierController::class, 'UpdateSupplier'])->name('update.supplier');
 
     // SALARY ROUTE START 
-    Route::get('/add-advance-salary', [SalaryController::class, 'AddAdvanceSalary'])->name('add.advance.salary');
-    Route::post('/store-advance-salary', [SalaryController::class, 'StoreAdvanceSalary'])->name('store.advance.salary');
-    Route::get('/all-advance-salary', [SalaryController::class, 'AllAdvanceSalary'])->name('all.advance.salary');
-    Route::get('/edit_advance_salary/{id}', [SalaryController::class, 'EditAdvanceSalary'])->name('edit.advance.salary');
-    Route::post('/update-advance-salary/{id}', [SalaryController::class, 'UpdateAdvanceSalary'])->name('update.advance.salary');
-    Route::get('/destroy-advance-salary/{id}', [SalaryController::class, 'DestroyAdvanceSalary'])->name('destroy.advance.salary');
-    Route::get('/pay-salary', [SalaryController::class, 'PaySalary'])->name('pay.salary');
+    Route::get('/pay-salary', [SalaryController::class, 'paySalary'])->name('pay.salary');
+    Route::get('/pay-now/{id}', [SalaryController::class, 'payNow'])->name('pay.now');
+    Route::post('/pay-confirm/{id}', [SalaryController::class, 'payConfirm'])->name('pay.confirm');
+    Route::get('/salary-data', [SalaryController::class, 'salaryData'])->name('salary.data');
+    Route::get('/advance-salary/{id}', [SalaryController::class, 'advanceSalary'])->name('advance.salary');
+    Route::post('/advance-store/{id}', [SalaryController::class, 'advanceStore'])->name('advance.store');
+
 
     //CATEGORY ROUTE START
     Route::get('/add-category', [CategoryController::class, 'AddCategorty'])->name('add.category');

@@ -39,7 +39,7 @@
                                                 <th>Action</th>
                                             </tr>
                                         </thead>    
-                                        <tbody>
+                                        {{-- <tbody>
                                             @foreach($employee as $data)     
                                     
                                             <tr>
@@ -47,27 +47,32 @@
                                                 <td> <img height="70" width="70" src=" {{ (!empty($data->photo)) ? asset('uploads/employee/'. $data->photo) : asset('uploads/demo.png') }}" alt=""></td>
                                                 <td>{{ \Carbon\Carbon::parse($data->created_at)->format('d/M/Y')}}</td>  
                                                 <td>{{ $data->salary }}</td>  
-                                                <td>{{ $data->salary_month }}</td>
+                                                <td>{{ $prev_month }}</td>
                                                 <td>
-                                                    @if ($data->salary_status == 'paid')
-                                                        <span class="badge badge-success">{{ $data->salary_status }}</span>
+                                                    @if ( $data->salary_data)
+
+                                                        @if ($data->salary_data->month == date("F", strtotime("-1 month")))
+                                                           <span class="badge badge-success">{{ $data->salary_data->status }}</span> 
+                                                        @endif
+
                                                     @else
-                                                        <span class="badge badge-danger">{{ $data->salary_status }}</span>
-                                                    @endif                                          
+                                                        <span class="badge badge-danger">Unpaid</span>
+                                                    @endif
+                        
                                                 </td>
                                                 <td>
                                                     @if (date('m') > \Carbon\Carbon::parse($data->created_at)->format('m'))
-                                                        <a href="{{ route('pay.now', ['id' => $data->id]) }}" class="btn btn-info btn-sm"> Pay Now </a>
-                                                        <a href="{{ route('advance.salary', ['id' => $data->id]) }}" class="btn btn-warning btn-sm"> Advance Salary </a>
+                                                        <a href="{{ route('pay.now', ['id' => $data->id]) }}" class="btn btn-info"> Pay Now </a>
+                                                        <a href="{{ route('pay.now', ['id' => $data->id]) }}" class="btn btn-warning"> Advance Salary </a>
                                                     @else
-                                                        <a class="btn btn-danger btn-sm" disabled>Unpayable</a>
-                                                        <a href="{{ route('advance.salary', ['id' => $data->id]) }}" class="btn btn-warning btn-sm"> Advance Salary </a>
+                                                        <a class="btn btn-danger" disabled>Unpayable</a>
+                                                        <a href="{{ route('pay.now', ['id' => $data->id]) }}" class="btn btn-warning"> Advance Salary </a>
                                                     @endif
                                                     
                                                 </td>
                                             </tr>
                                             @endforeach
-                                        </tbody>
+                                        </tbody> --}}
                                     </table>
 
                                 </div>
