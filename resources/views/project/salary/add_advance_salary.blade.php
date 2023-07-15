@@ -69,7 +69,16 @@
                                             <div class="col-md-8"><label>{{ $employee->salary }}</label></div>
                                         </div>     
                                     </div>
-
+                                    <div class="form-group">
+                                        <div class="row ">
+                                            <div class="col-md-4"> <label>Advance Paid :</label> </div>
+                                            <div class="col-md-8"><label > @if (empty($advance))
+                                                No advance paid in this month
+                                            @else
+                                                {{ $advance }}
+                                            @endif </label></div>
+                                        </div>     
+                                    </div>
                                     <div class="form-group">
                                         <div class="row ">
                                             <div class="col-md-4"> <label>Payment Method :</label> </div>
@@ -81,6 +90,7 @@
                                             </div>
                                         </div>     
                                     </div>
+                       
                                     <div class="form-group">
                                         <div class="row ">
                                             <div class="col-md-4"> <label>Pay Advance Amount :</label> </div>

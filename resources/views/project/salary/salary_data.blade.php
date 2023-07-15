@@ -32,47 +32,35 @@
                                             <tr>
                                                 <th>Name</th>
                                                 <th>Photo</th>
-                                                <th>Join Date</th>
                                                 <th>Salary</th>
+                                                <th>Paid Amount</th>
+                                                <th>Advance Amount</th>
                                                 <th>Month</th>
+                                                <th>Payment Method</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>    
-                                        {{-- <tbody>
-                                            @foreach($employee as $data)     
+                                        <tbody>
+                                            @foreach($salary as $data)     
                                     
                                             <tr>
                                                 <td>{{ $data->name }}</td>
                                                 <td> <img height="70" width="70" src=" {{ (!empty($data->photo)) ? asset('uploads/employee/'. $data->photo) : asset('uploads/demo.png') }}" alt=""></td>
-                                                <td>{{ \Carbon\Carbon::parse($data->created_at)->format('d/M/Y')}}</td>  
                                                 <td>{{ $data->salary }}</td>  
-                                                <td>{{ $prev_month }}</td>
+                                                <td>{{ $data->paid_amount }}</td>  
+                                                <td>{{ $data->advance_amount }}</td>
+                                                <td>{{ $data->month }}</td>
+                                                <td>{{ $data->payment_method }}</td>
+                                                <td> <span class="badge badge-success">{{ $data->status }}</span> </td>
                                                 <td>
-                                                    @if ( $data->salary_data)
+                                                    <a href="{{ route('view.employee', ['id' => $data->id]) }}" class="btn btn-danger"><i class="fa-solid fa-user-minus"></i> </a>
+                                                    <a href="{{ route('edit.employee', ['id' => $data->id]) }}" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i> </a>
 
-                                                        @if ($data->salary_data->month == date("F", strtotime("-1 month")))
-                                                           <span class="badge badge-success">{{ $data->salary_data->status }}</span> 
-                                                        @endif
-
-                                                    @else
-                                                        <span class="badge badge-danger">Unpaid</span>
-                                                    @endif
-                        
-                                                </td>
-                                                <td>
-                                                    @if (date('m') > \Carbon\Carbon::parse($data->created_at)->format('m'))
-                                                        <a href="{{ route('pay.now', ['id' => $data->id]) }}" class="btn btn-info"> Pay Now </a>
-                                                        <a href="{{ route('pay.now', ['id' => $data->id]) }}" class="btn btn-warning"> Advance Salary </a>
-                                                    @else
-                                                        <a class="btn btn-danger" disabled>Unpayable</a>
-                                                        <a href="{{ route('pay.now', ['id' => $data->id]) }}" class="btn btn-warning"> Advance Salary </a>
-                                                    @endif
-                                                    
                                                 </td>
                                             </tr>
                                             @endforeach
-                                        </tbody> --}}
+                                        </tbody>
                                     </table>
 
                                 </div>

@@ -20,10 +20,15 @@ class SalaryController extends Controller
 
     public function payNow($id)
     {
+        $salary = Salary::where('emp_id',$id)
+                        ->where('month', date("F", strtotime("-1 month")))
+                        ->first();
         $employee = Employee::find($id);    
-        $advance = AdvanceSalary::where('emp_id', $id)->value('advance_salary');
-        return view('project.salary.pay_now', compact('employee', 'advance'));
-        // return $advance;
+        $advance = AdvanceSalary::where('emp_id', $id)
+                                 ->where('month', date("F", strtotime("-1 month")))
+                                 ->value('advance_salary');
+        return view('project.salary.pay_now', compact('employee', 'advance', 'salary'));
+        // return $salary;
     }
 
     public function payConfirm(Request $request, $id)
@@ -74,14 +79,24 @@ class SalaryController extends Controller
 
     public function salaryData()
     {
-        return view('project.salary.salary_data');
+        $salary = DB::table('salaries')
+                  ->join('employees', 'salaries.emp_id', 'employees.id')
+                  ->get();
+        // return $salary;
+        return view('project.salary.salary_data', compact('salary'));
     }
 
     public function advanceSalary($id)
     {
         $employee = Employee::find($id);    
-        return view('project.salary.add_advance_salary', compact('employee'));
+        $advance = AdvanceSalary::where('emp_id', $id)
+                                 ->where('month', date("F"))
+                                 ->value('advance_salary');
+
+        return view('project.salary.add_advance_salary', compact('employee', 'advance'));
     }
+
+    
 
     public function advanceStore(Request $request, $id)
     {
@@ -97,13 +112,15 @@ class SalaryController extends Controller
             );
             return back()->with($notification);
         } else {
-            $advance_check = AdvanceSalary::where('emp_id', $id)->value('advance_salary');
+            $advance_check = AdvanceSalary::where('emp_id', $id)
+                                           ->where('month', date('F'))
+                                           ->value('advance_salary');
 
             if ($advance_check == NULL) {
                 AdvanceSalary::insert([
                     'emp_id'          => $id,
                     'advance_salary'  => $request->pay_advance,
-                    'month'           => date('M'),
+                    'month'           => date('F'),
                     'year'            => date("Y"),
                     'created_at'      => now(),
                     ]);
@@ -125,6 +142,31 @@ class SalaryController extends Controller
         }
         
 
-        
     }
+
+    public function allAdvance()
+    {
+        $advance_salary = DB::table('advance_salaries')
+                          ->join('employees', 'advance_salaries.emp_id', 'employees.id')
+                          ->get();
+        return view('project.salary.all_advance_salary', compact('advance_salary'));
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

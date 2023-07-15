@@ -41,6 +41,7 @@
                     <ul class="list-unstyled">
                         <li><a href="{{ route('pay.salary') }}">Pay Salary</a></li>
                         <li><a href="{{ route('salary.data') }}">Salary Data</a></li>
+                        <li><a href="{{ route('all.advance') }}">All Advance</a></li>
                     </ul>
                 </li>
 

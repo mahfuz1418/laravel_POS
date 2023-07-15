@@ -16,6 +16,7 @@ return new class extends Migration
             $table->integer('emp_id');
             $table->string('salary');
             $table->string('paid_amount');
+            $table->string('advance_amount')->default('No Advance');
             $table->string('payment_method');
             $table->string('month');
             $table->string('year');

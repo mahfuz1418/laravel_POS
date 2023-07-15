@@ -50,7 +50,9 @@
                                     <div class="form-group">
                                         <div class="row ">
                                             <div class="col-md-4"> <label>Month :</label> </div>
-                                            <div class="col-md-8"><label >{{  date("F", strtotime("-1 month"))  }}</label></div>
+                                            <div class="col-md-8"><label >{{  date("F", strtotime("-1 month"))  }}</label>  @if ($salary != NULL)
+                                              <span class="badge badge-success">  {{ $salary->status }} </span>
+                                            @endif </div>
                                         </div>     
                                     </div>
 
@@ -64,14 +66,27 @@
                                     <div class="form-group">
                                         <div class="row ">
                                             <div class="col-md-4"> <label>Advance Salary :</label> </div>
-                                            <div class="col-md-8"><label>{{ $advance }}</label></div>
+                                            <div class="col-md-8"><input type="text" value=" @if (!empty($advance)){{ $advance }}
+                                            @else No advance taken!
+                                            @endif " class="form-control" disabled></div>
                                         </div>     
                                     </div>
 
                                     <div class="form-group">
                                         <div class="row ">
                                             <div class="col-md-4"> <label>Due Salary :</label> </div>
-                                            <div class="col-md-8"><label>{{ $employee->salary - $advance }}</label></div>
+                                            <div class="col-md-8"><label>
+                                                @if ($salary != NULL)
+                                                    @if ($salary->status == 'paid')
+                                                    Salary paid
+                                                        
+                                                    @endif
+                                                @else
+                                                    {{ $employee->salary - $advance }}
+                                                @endif 
+                                                
+                                               
+                                            </label></div>
                                         </div>     
                                     </div>
 
@@ -89,11 +104,15 @@
                                     <div class="form-group">
                                         <div class="row ">
                                             <div class="col-md-4"> <label>Pay Amount :</label> </div>
-                                            <div class="col-md-8"><input type="number" name="paid_amount" class="form-control"></div>
+                                            <div class="col-md-8"><input type="number" name="paid_amount" class="form-control" @if ($salary != NULL)
+                                                @disabled($salary->status == 'paid')
+                                            @endif ></div>
                                         </div>     
                                     </div>
 
-                                    <button class="btn btn-success">Pay Confirm</button>
+                                    <button class="btn btn-success" @if($salary != NULL)
+                                        @disabled($salary->status == 'paid')
+                                    @endif >Pay Confirm</button>
                                 </form>
                             </div><!-- panel-body -->
                         </div> <!-- panel -->

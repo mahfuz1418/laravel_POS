@@ -82,6 +82,7 @@ Route::middleware('auth')->group(function(){
     Route::get('/salary-data', [SalaryController::class, 'salaryData'])->name('salary.data');
     Route::get('/advance-salary/{id}', [SalaryController::class, 'advanceSalary'])->name('advance.salary');
     Route::post('/advance-store/{id}', [SalaryController::class, 'advanceStore'])->name('advance.store');
+    Route::get('/all-advance', [SalaryController::class, 'allAdvance'])->name('all.advance');
 
 
     //CATEGORY ROUTE START

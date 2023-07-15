@@ -47,13 +47,13 @@
                                                 <td> <img height="70" width="70" src=" {{ (!empty($data->photo)) ? asset('uploads/employee/'. $data->photo) : asset('uploads/demo.png') }}" alt=""></td>
                                                 <td>{{ \Carbon\Carbon::parse($data->created_at)->format('d/M/Y')}}</td>  
                                                 <td>{{ $data->salary }}</td>  
-                                                <td>{{ $data->salary_month }}</td>
+                                                <td>{{ date('F', strtotime('-1 month')) }}</td>
                                                 <td>
-                                                    @if ($data->salary_status == 'paid')
+                                                    @if ( $data->salary_status == 'paid' && $data->salary_month == date('F', strtotime('-1 month')) )
                                                         <span class="badge badge-success">{{ $data->salary_status }}</span>
                                                     @else
-                                                        <span class="badge badge-danger">{{ $data->salary_status }}</span>
-                                                    @endif                                          
+                                                        <span class="badge badge-danger"> UNPAID </span>
+                                                    @endif
                                                 </td>
                                                 <td>
                                                     @if (date('m') > \Carbon\Carbon::parse($data->created_at)->format('m'))
