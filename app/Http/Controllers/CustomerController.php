@@ -66,7 +66,7 @@ class CustomerController extends Controller
             'alert-type' => 'success'
         );
         return back()->with($notification);
-        
+
     }
 
     public function AllCustomer()
@@ -84,7 +84,7 @@ class CustomerController extends Controller
         return view('project.customer.view_customer', compact('single_customer'));
     }
 
-    public function EditCustomer($id) 
+    public function EditCustomer($id)
     {
         $single_customer = Customer::find($id);
         return view('project.customer.edit_customer', compact('single_customer'));
@@ -110,7 +110,7 @@ class CustomerController extends Controller
             if (!empty($customer_photo )) {
                 unlink('uploads/customer/'.$customer_photo);
             }
-            
+
             $file_name = auth()->id() . time() . '.' . $request->file('photo')->getClientOriginalExtension();
             $image = Image::make($request->file('photo'));
             $destination = public_path('uploads/customer/');
@@ -152,7 +152,7 @@ class CustomerController extends Controller
         return back()->with($notification);
     }
 
-    public function DestroyCustomer($id) 
+    public function DestroyCustomer($id)
     {
         Customer::find($id)->delete();
 
